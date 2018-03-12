@@ -10,7 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180312021523) do
+ActiveRecord::Schema.define(version: 20180312023611) do
+
+  create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "title"
+    t.text "content"
+    t.bigint "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_articles_on_project_id"
+  end
+
+  create_table "articles_users", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "user_id", null: false
+    t.bigint "article_id", null: false
+  end
 
   create_table "projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "title"
@@ -31,5 +45,6 @@ ActiveRecord::Schema.define(version: 20180312021523) do
     t.index ["project_id"], name: "index_users_on_project_id"
   end
 
+  add_foreign_key "articles", "projects"
   add_foreign_key "users", "projects"
 end
