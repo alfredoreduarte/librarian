@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
 
 	def index
 		@projects = Project.all		
+		@users = User.first(10)
 	end
 
 end

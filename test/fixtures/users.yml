@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  token: MyString
+  email: MyString
+  phone: MyString
+  timezone: MyString
+  ip_address: MyString
+  project: one
+
+two:
+  token: MyString
+  email: MyString
+  phone: MyString
+  timezone: MyString
+  ip_address: MyString
+  project: two
