@@ -1,0 +1,7 @@
+<h2>Projects</h2>
+<p><%= link_to "New", url_for(controller: :projects, action: :new) %></p>
+<ul>
+	<% for project in @projects %>
+		<li><%= project.title %></li>
+	<% end %>
+</ul>
