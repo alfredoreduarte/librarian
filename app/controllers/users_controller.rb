@@ -12,8 +12,21 @@ class UsersController < ApplicationController
   def show
   end
 
+  # GET /users/1/articles.json
   def articles
     @articles = @user.articles
+  end
+
+  # POST /users/status.json
+  def status
+    logger.info('gett')
+    logger.info(params.inspect)
+    user = User.find_by(token: params[:token])
+    if !user.nil?
+      render plain: user.status
+    else
+      render plain: 'nonexistant'
+    end
   end
 
   # GET /users/new
@@ -39,6 +52,12 @@ class UsersController < ApplicationController
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  # POST /users/update_timezone.json
+  def update_timezone
+    @user = User.find_by(token: params[:token])
+    render plain: @user.token
   end
 
   # PATCH/PUT /users/1
