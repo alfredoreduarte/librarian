@@ -7,6 +7,11 @@
 	</p>
 
 	<p>
+		<strong>Status:</strong>
+		<%= @user.status %>
+	</p>
+
+	<p>
 		<strong>Email:</strong>
 		<%= @user.email %>
 	</p>
@@ -41,5 +46,6 @@
 	</ul>
 </div>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<%= link_to 'Edit', edit_user_path(@user) %> | 
+<%= link_to 'Back', users_path %> | 
+<%= link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' } %>

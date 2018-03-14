@@ -57,7 +57,15 @@ class UsersController < ApplicationController
   # POST /users/update_timezone.json
   def update_timezone
     @user = User.find_by(token: params[:token])
-    render plain: @user.token
+    @user.update(timezone: params[:timezone])
+    render @user
+  end
+
+  # POST /users/unsubscribe.json
+  def unsubscribe
+    @user = User.find_by(token: params[:token])
+    @user.update(status: 1)
+    render @user
   end
 
   # PATCH/PUT /users/1

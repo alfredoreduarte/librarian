@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
 	# namespace "0.1" do
 		post '/users/update_timezone.json', to: 'users#update_timezone'
+		post '/users/unsubscribe.json', to: 'users#unsubscribe'
 		post '/users/status.json', to: 'users#status'
 		get '/users/:id/articles.json', to: 'users#articles'
 		resources :users
