@@ -1,4 +1,4 @@
-<%= form_with(model: user, local: true) do |form| %>
+<%= form_with(model: user, local: true, class: 'form') do |form| %>
   <% if user.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -11,37 +11,41 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
+    <%= form.select :status, collection: User.statuses.keys.to_a %>
+  </div>
+
+  <div class="form-group">
     <%= form.label :token %>
-    <%= form.text_field :token, id: :user_token %>
+    <%= form.text_field :token, id: :user_token, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :email %>
-    <%= form.text_field :email, id: :user_email %>
+    <%= form.text_field :email, id: :user_email, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :phone %>
-    <%= form.text_field :phone, id: :user_phone %>
+    <%= form.text_field :phone, id: :user_phone, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :timezone %>
-    <%= form.text_field :timezone, id: :user_timezone %>
+    <%= form.text_field :timezone, id: :user_timezone, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :ip_address %>
-    <%= form.text_field :ip_address, id: :user_ip_address %>
+    <%= form.text_field :ip_address, id: :user_ip_address, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :project_id %>
-    <%= form.text_field :project_id, id: :user_project_id %>
+    <%= form.text_field :project_id, id: :user_project_id, class: "form-control" %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit(class: "btn btn-primary") %>
   </div>
 <% end %>
