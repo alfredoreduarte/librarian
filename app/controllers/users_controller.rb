@@ -35,7 +35,7 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     # @user = User.new(user_params)
-    @user = User.first_or_initialize(token: params[:token])
+    @user = User.find_or_initialize_by(token: params[:token])
     @user.update(user_params)
 
     respond_to do |format|
