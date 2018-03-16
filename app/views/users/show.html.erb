@@ -35,6 +35,10 @@
 		<strong>Project:</strong>
 		<%= @user.project.title %>
 	</p>
+
+	<%= link_to 'Edit', edit_user_path(@user) %> | 
+	<%= link_to 'Back', users_path %> | 
+	<%= link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' } %>
 </div>
 
 <div class="col-md-6">
@@ -45,7 +49,3 @@
 	<% end %>
 	</ul>
 </div>
-
-<%= link_to 'Edit', edit_user_path(@user) %> | 
-<%= link_to 'Back', users_path %> | 
-<%= link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' } %>

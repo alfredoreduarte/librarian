@@ -19,8 +19,6 @@ class UsersController < ApplicationController
 
   # POST /users/status.json
   def status
-    logger.info('gett')
-    logger.info(params.inspect)
     user = User.find_by(token: params[:token])
     if !user.nil?
       render plain: user.status
@@ -100,6 +98,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:token, :email, :phone, :timezone, :ip_address, :project_id)
+      params.require(:user).permit(:token, :email, :phone, :timezone, :ip_address, :project_id, :status)
     end
 end
