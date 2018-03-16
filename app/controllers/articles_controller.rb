@@ -4,7 +4,11 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   def index
-    @articles = Article.all
+    if !params[:project_id].nil?
+      @articles = Article.where(project_id: params[:project_id]).all
+    else
+      @articles = Article.all
+    end
   end
 
   # GET /articles_for_user/:user_token.json

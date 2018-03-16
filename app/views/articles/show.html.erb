@@ -6,13 +6,13 @@
 </p>
 
 <p>
-  <strong>Content:</strong>
-  <%= @article.content %>
+  <strong>Project:</strong>
+  <%= link_to @article.project.title, @article.project %>
 </p>
 
 <p>
-  <strong>Project:</strong>
-  <%= @article.project %>
+  <strong>Content:</strong>
+  <textarea rows="10" class="form-control" readonly><%= JSON.pretty_generate(@article.content) %></textarea>
 </p>
 
 <%= link_to 'Edit', edit_article_path(@article) %> |
