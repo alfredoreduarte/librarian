@@ -2,5 +2,12 @@ class User < ApplicationRecord
 	belongs_to :project
 	has_and_belongs_to_many :articles
 	enum status: { subscribed: 0, unsubscribed: 1 }
-	# validates_uniqueness_of :token, scope: :project_id
+	after_create :temporarily_assign_all_articles
+
+	private
+		def temporarily_assign_all_articles
+			articles = Article.all
+			self.articles = articles
+			self.save
+		end
 end
