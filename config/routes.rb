@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
+	get '/articles_for_user/:user_token.json', to: 'articles#for_user'
 	resources :articles
 
 	# namespace "0.1" do
 		post '/users/update_timezone.json', to: 'users#update_timezone'
 		post '/users/unsubscribe.json', to: 'users#unsubscribe'
 		post '/users/status.json', to: 'users#status'
-		get '/users/:id/articles.json', to: 'users#articles'
 		resources :users
 	# end
 	resources :projects

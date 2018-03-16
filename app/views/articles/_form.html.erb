@@ -23,7 +23,7 @@
 
   <div class="form-group">
     <%= form.label :project_id %>
-    <%= form.text_field :project_id, id: :article_project_id, class: "form-control" %>
+    <%= form.select :project_id, collection: Project.all.map{|x| [x.title, x.id]} %>
   </div>
 
   <div class="actions">

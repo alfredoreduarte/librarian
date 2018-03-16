@@ -7,6 +7,15 @@ class ArticlesController < ApplicationController
     @articles = Article.all
   end
 
+  # GET /articles_for_user/:user_token.json
+  def for_user
+    @user = User.find_by(token: params[:user_token])
+    if !@user.nil?
+      @articles = @user.articles
+      render template: "articles/index.json"
+    end
+  end
+
   # GET /articles/1
   # GET /articles/1.json
   def show
