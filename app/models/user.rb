@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
 	private
 		def temporarily_assign_all_articles
-			articles = Article.all
+			articles = Article.first(7)
 			self.articles = articles
 			self.save
 		end
