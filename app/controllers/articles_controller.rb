@@ -82,6 +82,10 @@ class ArticlesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def article_params
-      params.require(:article).permit(:title, :content, :project_id)
+      # 
+      # Blindly whitelist the "content" param to avoid having to specify ALL possible json keys
+      # 
+      properties_keys = params[:article][:content].keys
+      params.require(:article).permit(:title, :project_id, content: properties_keys)
     end
 end
