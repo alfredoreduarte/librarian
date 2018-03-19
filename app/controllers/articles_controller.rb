@@ -4,10 +4,12 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   def index
+    limit = params[:limit] || nil
+    offset = params[:offset] || nil
     if !params[:project_id].nil?
-      @articles = Article.where(project_id: params[:project_id]).all
+      @articles = Article.where(project_id: params[:project_id]).offset(offset).limit(limit).all
     else
-      @articles = Article.all
+      @articles = Article.offset(offset).limit(limit).all
     end
   end
 
