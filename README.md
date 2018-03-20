@@ -1,13 +1,3 @@
-## article contents template
-
-```
-{
-  "verse": "",
-  "explanation": "",
-  "verse_code": ""
-}
-```
-
 # README
 
 This README would normally document whatever steps are necessary to get the
