@@ -2,34 +2,38 @@
 
 <h1>Users</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Token</th>
-      <th>Email</th>
-      <th>Phone</th>
-      <th>Timezone</th>
-      <th>Ip address</th>
-      <th>Project</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<table class="table table-hover table-striped">
+	<thead>
+		<tr>
+			<th>Token</th>
+			<th>Name</th>
+			<th>Last Name</th>
+			<th>Email</th>
+			<th>Phone</th>
+			<th>Timezone</th>
+			<th>Ip address</th>
+			<th>Project</th>
+			<th colspan="3"></th>
+		</tr>
+	</thead>
 
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= user.token %></td>
-        <td><%= user.email %></td>
-        <td><%= user.phone %></td>
-        <td><%= user.timezone %></td>
-        <td><%= user.ip_address %></td>
-        <td><%= user.project %></td>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
+	<tbody>
+		<% @users.each do |user| %>
+			<tr>
+				<td><%= link_to user.token, user %></td>
+				<td><%= user.name %></td>
+				<td><%= user.last_name %></td>
+				<td><%= user.email %></td>
+				<td><%= user.phone %></td>
+				<td><%= user.timezone %></td>
+				<td><%= user.ip_address %></td>
+				<td><%= link_to user.project.title, user.project %></td>
+				<td><%= link_to 'Show', user %></td>
+				<td><%= link_to 'Edit', edit_user_path(user) %></td>
+				<td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+			</tr>
+		<% end %>
+	</tbody>
 </table>
 
 <br>

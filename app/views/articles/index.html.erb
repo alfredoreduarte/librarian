@@ -2,28 +2,30 @@
 
 <h1>Articles</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Content</th>
-      <th>Project</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<table class="table table-hover table-striped">
+	<thead>
+		<tr>
+			<th>Title</th>
+			<th>Content</th>
+			<th>Project</th>
+			<th colspan="3"></th>
+		</tr>
+	</thead>
 
-  <tbody>
-    <% @articles.each do |article| %>
-      <tr>
-        <td><%= article.title %></td>
-        <td><%= article.content %></td>
-        <td><%= article.project %></td>
-        <td><%= link_to 'Show', article %></td>
-        <td><%= link_to 'Edit', edit_article_path(article) %></td>
-        <td><%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
+	<tbody>
+		<% @articles.each do |article| %>
+			<tr>
+				<td><%= article.title %></td>
+				<td>
+					<textarea rows="2" class="form-control" readonly><%= JSON.pretty_generate(article.content) %></textarea>
+				</td>
+				<td><%= link_to user.project.title, user.project %></td>
+				<td><%= link_to 'Show', article %></td>
+				<td><%= link_to 'Edit', edit_article_path(article) %></td>
+				<td><%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+			</tr>
+		<% end %>
+	</tbody>
 </table>
 
 <br>
