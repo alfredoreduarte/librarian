@@ -19,7 +19,7 @@
 				<td>
 					<textarea rows="2" class="form-control" readonly><%= JSON.pretty_generate(article.content) %></textarea>
 				</td>
-				<td><%= link_to user.project.title, user.project %></td>
+				<td><%= link_to article.project.title, article.project %></td>
 				<td><%= link_to 'Show', article %></td>
 				<td><%= link_to 'Edit', edit_article_path(article) %></td>
 				<td><%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' } %></td>
