@@ -59,8 +59,12 @@ class UsersController < ApplicationController
   # POST /users/unsubscribe.json
   def unsubscribe
     @user = User.find_by(token: params[:token])
-    @user.update(status: 1)
-    render @user
+    if !@user.nil?
+      @user.update(status: 1)
+      render @user
+    else
+      render plain: 'ok'
+    end
   end
 
   # PATCH/PUT /users/1
