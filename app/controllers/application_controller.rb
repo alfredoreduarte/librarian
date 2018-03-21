@@ -3,9 +3,12 @@ class ApplicationController < ActionController::Base
 	http_basic_authenticate_with name: ENV['USERNAME'], password: ENV['PASSWORD']
 
 	def index
-		@projects = Project.all		
+		@projects = Project.all
+		@projects_count = Project.count		
 		@users = User.first(10)
+		@users_count = User.count
 		@articles = Article.first(10)
+		@articles_count = Article.count
 	end
 
 end
