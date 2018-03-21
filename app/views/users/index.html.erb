@@ -5,13 +5,16 @@
 <table class="table table-hover table-striped">
 	<thead>
 		<tr>
+			<th>ID</th>
 			<th>Token</th>
 			<th>Name</th>
 			<th>Last Name</th>
-			<th>Email</th>
-			<th>Phone</th>
+			<th>Status</th>
+			<!-- <th>Email</th> -->
+			<!-- <th>Phone</th> -->
 			<th>Timezone</th>
-			<th>Ip address</th>
+			<th>Created At</th>
+			<!-- <th>Ip address</th> -->
 			<th>Project</th>
 			<th colspan="3"></th>
 		</tr>
@@ -20,13 +23,16 @@
 	<tbody>
 		<% @users.each do |user| %>
 			<tr>
+				<td><b><%= user.id %></b></td>
 				<td><%= link_to user.token, user %></td>
 				<td><%= user.name %></td>
 				<td><%= user.last_name %></td>
-				<td><%= user.email %></td>
-				<td><%= user.phone %></td>
+				<!-- <td><%= user.email %></td> -->
+				<!-- <td><%= user.phone %></td> -->
+				<td><%= user.status %></td>
 				<td><%= user.timezone %></td>
-				<td><%= user.ip_address %></td>
+				<td><%= user.created_at %></td>
+				<!-- <td><%= user.ip_address %></td> -->
 				<td><%= link_to user.project.title, user.project %></td>
 				<td><%= link_to 'Show', user %></td>
 				<td><%= link_to 'Edit', edit_user_path(user) %></td>
