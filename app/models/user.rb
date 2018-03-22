@@ -38,7 +38,6 @@ class User < ApplicationRecord
 				require 'digest/md5'
 				image_name = Digest::MD5.hexdigest("filthy#{article.id}rich") 
 				image_url = "https://d3u2pxre64aoed.cloudfront.net/og/square/#{image_name}.png"
-				logger.info(image_url)
 
 				hashids = Hashids.new('letspray', 15)
 				hash_id = hashids.encode(article.id)
