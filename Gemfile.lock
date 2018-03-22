@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/peterhellberg/hashids.rb.git
+  revision: 6748fd1e1867f491e10b9b69095a6c9babd773b4
+  specs:
+    hashids (1.0.4)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -182,6 +188,7 @@ DEPENDENCIES
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
   faraday
+  hashids!
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
   mysql2 (>= 0.3.18, < 0.5)

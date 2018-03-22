@@ -1,7 +1,8 @@
 class Article < ApplicationRecord
 	serialize :content, JSON
 	belongs_to :project
-	has_and_belongs_to_many :users
+	has_many :readings
+	has_many :users, through: :readings
 	# before_save :sanitize_json
 
 	def self.simulate_dates
