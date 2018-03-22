@@ -47,7 +47,7 @@
 	<h2>Articles</h2>
 	<ul class="list-unstyled">
 	<% for article in @user.articles %>
-		<li><%= link_to article.title, article %></li>
+		<li><%= @user.readings.where(article_id: article.id).first.sent ? 'SENT' : 'PENDING' %> | <%= link_to article.title, article %></li>
 	<% end %>
 	</ul>
 </div>
