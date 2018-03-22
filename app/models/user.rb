@@ -127,8 +127,13 @@ class User < ApplicationRecord
 
 	private
 		def temporarily_assign_all_articles
-			articles = Article.first(7)
-			self.articles = articles
-			self.save
+			# articles = Article.first(7)
+			# self.articles = articles
+			# self.save
+			i = 0
+			until i > 7 or i == Article.count - 1 do
+				self.assign_new_random_content
+				i = i+1
+			end
 		end
 end
