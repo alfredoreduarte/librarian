@@ -6,7 +6,7 @@ class Article < ApplicationRecord
 
 	def self.simulate_dates
 		today = DateTime.now
-		Article.order(id: :desc).all.each do |art|
+		Article.order(id: :asc).all.each do |art|
 			art.created_at = today
 			art.updated_at = today
 			today = today - 1.day

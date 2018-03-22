@@ -5,7 +5,10 @@ class User < ApplicationRecord
 	after_create :temporarily_assign_all_articles
 
 	def send_daily_content
-		# Temporary fix for massive messaging
+		# 
+		# Temporary fix for massive messaging:
+		# (757..765).map{|x| User.find_by(id: x).send_daily_content rescue nil}
+		# 
 		if self.status.to_sym == :subscribed
 			token = self.token
 			# article = Article.find(109) # Local
