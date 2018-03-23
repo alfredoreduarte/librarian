@@ -17,10 +17,10 @@ class User < ApplicationRecord
 				# if user_time.min >= 30
 				if true
 					logger.info("!!!!!! send notif !!!!!!!!")
-					if user.id == 1
-						logger.info("!!!!!! it was admin !!!!!!!!")
+					# if user.id == 1
+						# logger.info("!!!!!! it was admin !!!!!!!!")
 						user.send_daily_content
-					end
+					# end
 				else
 					logger.info('hour is fine but 30 mins have not passed')
 				end
