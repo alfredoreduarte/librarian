@@ -7,47 +7,44 @@ class User < ApplicationRecord
 
 	def self.send_if_time
 		users = User.subscribed
-		logger.info("SEND_IF_TIME RUNNING")
 		for user in users
 			offset = user.timezone.to_i || -6
 			user_time = Time.now.in_time_zone(offset)
 			logger.info("user_time time #{user_time}")
-			if user_time.hour >= 8 and user_time.hour < 12
+			# if user_time.hour >= 8 and user_time.hour < 12
+			if user_time.hour >= 17 and user_time.hour < 20
 			# if true
-				# if user_time.min >= 30
-				if true
-					logger.info("!!!!!! send notif !!!!!!!!")
-					# if user.id == 1
-						# logger.info("!!!!!! it was admin !!!!!!!!")
-						# user.send_daily_content
-					# end
-				else
-					logger.info('hour is fine but 30 mins have not passed')
+				# logger.info("!!!!!! send notif !!!!!!!!")
+				if user.id == 1 # only admin
+					logger.info("!!!!!! it was admin !!!!!!!!")
+					user.send_daily_content
 				end
 			else
-				logger.info('is less than 8 or after 12 am')
+				logger.info('is less than 5 or after 8 pm')
 			end
 		end
 	end
 
 	def self.assign_new_random_content
-		# users = User.subscribed
+		users = User.subscribed
 
-		# for user in users
-		# 	a = nil
-		# 	count = 1
-		# 	ids_to_exclude = user.articles.map{|x| x.id}
-		# 	loop do
-		# 		a = Article.limit(1).where.not(id: ids_to_exclude).order("RAND()").first
-		# 		break if a.nil? or user.articles.find_by(id: a.id).nil? or count == Article.count
-		# 		count = count + 1
-		# 	end
-		# 	if !a.nil? and user.articles.find_by(id: a.id).nil?
-		# 		user.articles << a
-		# 	else
-		# 		logger.info("All Articles have been assigned to user #{user.id}")
-		# 	end
-		# end
+		for user in users
+			if user.id == 1 # only admin
+				a = nil
+				count = 1
+				ids_to_exclude = user.articles.map{|x| x.id}
+				loop do
+					a = Article.limit(1).where.not(id: ids_to_exclude).order("RAND()").first
+					break if a.nil? or user.articles.find_by(id: a.id).nil? or count == Article.count
+					count = count + 1
+				end
+				if !a.nil? and user.articles.find_by(id: a.id).nil?
+					user.articles << a
+				else
+					logger.info("All Articles have been assigned to user #{user.id}")
+				end
+			end
+		end
 	end
 
 	def send_daily_content
@@ -132,16 +129,16 @@ class User < ApplicationRecord
 						}
 					}
 				}
-				# response = conn.post do |req|
-				# 	req.url "/v2.6/me/messages?access_token=#{access_token}"
-				# 	req.headers['Content-Type'] = 'application/json'
-				# 	req.body = body.to_json
-				# end
-				# if response.status.to_i == 200
-				# 	reading = self.readings.where(article_id: article.id).first
-				# 	reading.sent = true
-				# 	reading.save
-				# end
+				response = conn.post do |req|
+					req.url "/v2.6/me/messages?access_token=#{access_token}"
+					req.headers['Content-Type'] = 'application/json'
+					req.body = body.to_json
+				end
+				if response.status.to_i == 200
+					reading = self.readings.where(article_id: article.id).first
+					reading.sent = true
+					reading.save
+				end
 			else
 				logger.info("No pending readings for user #{self.id}")
 			end
@@ -152,7 +149,7 @@ class User < ApplicationRecord
 		def assign_first_articles
 			i = 0
 			until i > 7 or i == Article.count - 1 do
-				# self.assign_new_random_content
+				# simulating self.assign_new_random_content
 				a = nil
 				count = 1
 				ids_to_exclude = self.articles.map{|x| x.id}
@@ -166,7 +163,7 @@ class User < ApplicationRecord
 				else
 					logger.info("All Articles have been assigned to user #{self.id}")
 				end
-				# self.assign_new_random_content
+				# simulating self.assign_new_random_content
 				i = i+1
 			end
 		end
