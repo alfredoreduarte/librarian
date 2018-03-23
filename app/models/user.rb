@@ -150,7 +150,21 @@ class User < ApplicationRecord
 		def assign_first_articles
 			i = 0
 			until i > 7 or i == Article.count - 1 do
-				self.assign_new_random_content
+				# self.assign_new_random_content
+				a = nil
+				count = 1
+				ids_to_exclude = self.articles.map{|x| x.id}
+				loop do
+					a = Article.limit(1).where.not(id: ids_to_exclude).order("RAND()").first
+					break if a.nil? or self.articles.find_by(id: a.id).nil? or count == Article.count
+					count = count + 1
+				end
+				if !a.nil? and self.articles.find_by(id: a.id).nil?
+					self.articles << a
+				else
+					logger.info("All Articles have been assigned to user #{self.id}")
+				end
+				# self.assign_new_random_content
 				i = i+1
 			end
 		end
