@@ -12,7 +12,7 @@ class User < ApplicationRecord
 			offset = user.timezone.to_i || -6
 			user_time = Time.now.in_time_zone(offset)
 			logger.info("user_time time #{user_time}")
-			if user_time.hour >= 8 and user_time.hour < 10
+			if user_time.hour >= 8 and user_time.hour < 12
 				if user_time.min >= 30
 					logger.info("!!!!!! send notif !!!!!!!!")
 					if user.id == 1
@@ -23,7 +23,7 @@ class User < ApplicationRecord
 					logger.info('hour is fine but 30 mins have not passed')
 				end
 			else
-				logger.info('is less than 8 or after 10 am')
+				logger.info('is less than 8 or after 12 am')
 			end
 		end
 	end
