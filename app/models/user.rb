@@ -160,6 +160,7 @@ class User < ApplicationRecord
 				end
 				if !a.nil? and self.articles.find_by(id: a.id).nil?
 					self.articles << a
+					self.readings.map{ |r| r.update(sent: true) }
 				else
 					logger.info("All Articles have been assigned to user #{self.id}")
 				end
