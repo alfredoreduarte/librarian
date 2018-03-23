@@ -7,19 +7,19 @@ class User < ApplicationRecord
 
 	def self.send_if_time
 		users = User.subscribed
-
+		logger.info("SEND_IF_TIME RUNNING")
 		for user in users
 			offset = user.timezone.to_i || -6
 			user_time = Time.now.in_time_zone(offset)
 			logger.info("user_time time #{user_time}")
-			# if user_time.hour >= 8 and user_time.hour < 12
-			if true
+			if user_time.hour >= 8 and user_time.hour < 12
+			# if true
 				# if user_time.min >= 30
 				if true
 					logger.info("!!!!!! send notif !!!!!!!!")
 					# if user.id == 1
 						# logger.info("!!!!!! it was admin !!!!!!!!")
-						user.send_daily_content
+						# user.send_daily_content
 					# end
 				else
 					logger.info('hour is fine but 30 mins have not passed')
@@ -31,23 +31,23 @@ class User < ApplicationRecord
 	end
 
 	def self.assign_new_random_content
-		users = User.subscribed
+		# users = User.subscribed
 
-		for user in users
-			a = nil
-			count = 1
-			ids_to_exclude = user.articles.map{|x| x.id}
-			loop do
-				a = Article.limit(1).where.not(id: ids_to_exclude).order("RAND()").first
-				break if a.nil? or user.articles.find_by(id: a.id).nil? or count == Article.count
-				count = count + 1
-			end
-			if !a.nil? and user.articles.find_by(id: a.id).nil?
-				user.articles << a
-			else
-				logger.info("All Articles have been assigned to user #{user.id}")
-			end
-		end
+		# for user in users
+		# 	a = nil
+		# 	count = 1
+		# 	ids_to_exclude = user.articles.map{|x| x.id}
+		# 	loop do
+		# 		a = Article.limit(1).where.not(id: ids_to_exclude).order("RAND()").first
+		# 		break if a.nil? or user.articles.find_by(id: a.id).nil? or count == Article.count
+		# 		count = count + 1
+		# 	end
+		# 	if !a.nil? and user.articles.find_by(id: a.id).nil?
+		# 		user.articles << a
+		# 	else
+		# 		logger.info("All Articles have been assigned to user #{user.id}")
+		# 	end
+		# end
 	end
 
 	def send_daily_content
@@ -132,16 +132,16 @@ class User < ApplicationRecord
 						}
 					}
 				}
-				response = conn.post do |req|
-					req.url "/v2.6/me/messages?access_token=#{access_token}"
-					req.headers['Content-Type'] = 'application/json'
-					req.body = body.to_json
-				end
-				if response.status.to_i == 200
-					reading = self.readings.where(article_id: article.id).first
-					reading.sent = true
-					reading.save
-				end
+				# response = conn.post do |req|
+				# 	req.url "/v2.6/me/messages?access_token=#{access_token}"
+				# 	req.headers['Content-Type'] = 'application/json'
+				# 	req.body = body.to_json
+				# end
+				# if response.status.to_i == 200
+				# 	reading = self.readings.where(article_id: article.id).first
+				# 	reading.sent = true
+				# 	reading.save
+				# end
 			else
 				logger.info("No pending readings for user #{self.id}")
 			end
