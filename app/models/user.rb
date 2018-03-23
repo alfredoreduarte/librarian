@@ -29,21 +29,24 @@ class User < ApplicationRecord
 		users = User.subscribed
 
 		for user in users
-			if user.id == 1 # only admin
-				a = nil
-				count = 1
-				ids_to_exclude = user.articles.map{|x| x.id}
-				loop do
-					a = Article.limit(1).where.not(id: ids_to_exclude).order("RAND()").first
-					break if a.nil? or user.articles.find_by(id: a.id).nil? or count == Article.count
-					count = count + 1
+			pending_count = user.readings.where(sent: false).count
+			# if user.id == 1 # only admin
+				if pending_count == 0 # only add new pending to users with no pendings
+					a = nil
+					count = 1
+					ids_to_exclude = user.articles.map{|x| x.id}
+					loop do
+						a = Article.limit(1).where.not(id: ids_to_exclude).order("RAND()").first
+						break if a.nil? or user.articles.find_by(id: a.id).nil? or count == Article.count
+						count = count + 1
+					end
+					if !a.nil? and user.articles.find_by(id: a.id).nil?
+						user.articles << a
+					else
+						logger.info("All Articles have been assigned to user #{user.id}")
+					end
 				end
-				if !a.nil? and user.articles.find_by(id: a.id).nil?
-					user.articles << a
-				else
-					logger.info("All Articles have been assigned to user #{user.id}")
-				end
-			end
+			# end
 		end
 	end
 
