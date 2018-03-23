@@ -11,16 +11,16 @@ class User < ApplicationRecord
 			offset = user.timezone.to_i || -6
 			user_time = Time.now.in_time_zone(offset)
 			logger.info("user_time time #{user_time}")
-			# if user_time.hour >= 8 and user_time.hour < 12
-			if user_time.hour >= 17 and user_time.hour < 20
+			if user_time.hour >= 8 and user_time.hour < 12
+			# if user_time.hour >= 17 and user_time.hour < 20
 			# if true
 				# logger.info("!!!!!! send notif !!!!!!!!")
-				if user.id == 1 # only admin
-					logger.info("!!!!!! it was admin !!!!!!!!")
+				# if user.id == 1 # only admin
+					# logger.info("!!!!!! it was admin !!!!!!!!")
 					user.send_daily_content
-				end
+				# end
 			else
-				logger.info('is less than 5 or after 8 pm')
+				logger.info("time for user #{user.token} is less than 8 or after 8 pm")
 			end
 		end
 	end
