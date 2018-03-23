@@ -13,7 +13,8 @@ class User < ApplicationRecord
 			user_time = Time.now.in_time_zone(offset)
 			logger.info("user_time time #{user_time}")
 			if user_time.hour >= 8 and user_time.hour < 12
-				if user_time.min >= 30
+				# if user_time.min >= 30
+				if true
 					logger.info("!!!!!! send notif !!!!!!!!")
 					if user.id == 1
 						logger.info("!!!!!! it was admin !!!!!!!!")
