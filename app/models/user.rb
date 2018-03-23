@@ -5,6 +5,25 @@ class User < ApplicationRecord
 	enum status: { subscribed: 0, unsubscribed: 1 }
 	after_create :temporarily_assign_all_articles
 
+	def self.send_if_time
+		users = User.subscribed
+
+		for user in users
+			offset = user.timezone.to_i || -6
+			user_time = Time.now.in_time_zone(offset)
+			logger.info("user_time time #{user_time}")
+			if user_time.hour >= 8 and user_time.hour < 10
+				if user_time.min >= 30
+					logger.info("!!!!!! send notif !!!!!!!!")
+				else
+					logger.info('hour is fine but 30 mins have not passed')
+				end
+			else
+				logger.info('is less than 8 or after 10 am')
+			end
+		end
+	end
+
 	def assign_new_random_content
 		if self.status.to_sym == :subscribed
 			a = nil
