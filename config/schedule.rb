@@ -27,9 +27,9 @@
 # 	runner "User.send_if_time"
 # end
 
-# every 1.hour do # 1.minute 1.day 1.week 1.month 1.year is also supported
-# 	runner "User.send_if_time"
-# end
+every 1.hour do # 1.minute 1.day 1.week 1.month 1.year is also supported
+	runner "User.send_if_time"
+end
 
 every 1.day, at: '11:59 pm' do
   runner "User.assign_new_random_content"
