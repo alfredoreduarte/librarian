@@ -3,7 +3,7 @@ class User < ApplicationRecord
 	has_many :readings
 	has_many :articles, through: :readings
 	enum status: { subscribed: 0, unsubscribed: 1 }
-	after_create :temporarily_assign_all_articles
+	after_create :assign_first_articles
 
 	def self.send_if_time
 		users = User.subscribed
@@ -15,6 +15,7 @@ class User < ApplicationRecord
 			if user_time.hour >= 8 and user_time.hour < 10
 				if user_time.min >= 30
 					logger.info("!!!!!! send notif !!!!!!!!")
+					user.send_daily_content
 				else
 					logger.info('hour is fine but 30 mins have not passed')
 				end
@@ -24,29 +25,27 @@ class User < ApplicationRecord
 		end
 	end
 
-	def assign_new_random_content
-		if self.status.to_sym == :subscribed
+	def self.assign_new_random_content
+		users = User.subscribed
+
+		for user in users
 			a = nil
 			count = 1
-			ids_to_exclude = self.articles.map{|x| x.id}
+			ids_to_exclude = user.articles.map{|x| x.id}
 			loop do
 				a = Article.limit(1).where.not(id: ids_to_exclude).order("RAND()").first
-				break if a.nil? or self.articles.find_by(id: a.id).nil? or count == Article.count
+				break if a.nil? or user.articles.find_by(id: a.id).nil? or count == Article.count
 				count = count + 1
 			end
-			if !a.nil? and self.articles.find_by(id: a.id).nil?
-				self.articles << a
+			if !a.nil? and user.articles.find_by(id: a.id).nil?
+				user.articles << a
 			else
-				logger.info("All Articles have been assigned to user #{self.id}")
+				logger.info("All Articles have been assigned to user #{user.id}")
 			end
 		end
 	end
 
 	def send_daily_content
-		# 
-		# Temporary fix for massive messaging:
-		# (757..765).map{|x| User.find_by(id: x).send_daily_content rescue nil}
-		# 
 		if self.status.to_sym == :subscribed
 			token = self.token
 			reading = self.readings.where(sent: false).order(created_at: :desc).first
@@ -145,10 +144,7 @@ class User < ApplicationRecord
 	end
 
 	private
-		def temporarily_assign_all_articles
-			# articles = Article.first(7)
-			# self.articles = articles
-			# self.save
+		def assign_first_articles
 			i = 0
 			until i > 7 or i == Article.count - 1 do
 				self.assign_new_random_content
