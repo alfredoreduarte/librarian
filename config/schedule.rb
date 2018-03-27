@@ -19,6 +19,9 @@
 
 # Learn more: http://github.com/javan/whenever
 
+# adds ">> cron.log" to all commands
+set :output, {:standard => 'cron.log'}
+
 # every 9.minutes do # 1.minute 1.day 1.week 1.month 1.year is also supported
 # 	runner "User.assign_new_random_content"
 # end
