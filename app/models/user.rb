@@ -50,6 +50,32 @@ class User < ApplicationRecord
 		end
 	end
 
+	def send_text(text)
+		if self.status.to_sym == :subscribed
+			access_token = "EAAHuoKlNulQBADAZAStvz3DLAAtV6yggKZBSqE6QStZCsZBqRrLK6XKllhgiAcBpjsu5WI9Eh8bUS8ZBt7Wve9LkfMpdtbaf5lVecA345RFqTNgqiR0CA5hWL0f8Lp3aWnI9321o5EIYq3YjbFBPLgcNnOPoyvaZCp5uZCHkAM6zgZDZD"
+			body = {
+				messaging_type: "NON_PROMOTIONAL_SUBSCRIPTION",
+				recipient: {
+					id: self.token
+				},
+				message: {
+					text: text
+				}
+			}
+			conn = Faraday.new(:url => "https://graph.facebook.com")
+			response = conn.post do |req|
+				req.url "/v2.6/me/messages?access_token=#{access_token}"
+				req.headers['Content-Type'] = 'application/json'
+				req.body = body.to_json
+			end
+			if response.status.to_i == 200
+				logger.info("Successfully sent text to user #{self.token}")
+			else
+				logger.info("Error sending text to user #{self.token}. Response: #{response.to_s}")
+			end
+		end
+	end
+
 	def send_daily_content
 		if self.status.to_sym == :subscribed
 			token = self.token
