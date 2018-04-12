@@ -52,7 +52,7 @@ class User < ApplicationRecord
 
 	def send_text(text)
 		if self.status.to_sym == :subscribed
-			access_token = "EAAHuoKlNulQBADAZAStvz3DLAAtV6yggKZBSqE6QStZCsZBqRrLK6XKllhgiAcBpjsu5WI9Eh8bUS8ZBt7Wve9LkfMpdtbaf5lVecA345RFqTNgqiR0CA5hWL0f8Lp3aWnI9321o5EIYq3YjbFBPLgcNnOPoyvaZCp5uZCHkAM6zgZDZD"
+			access_token = "EAAHuoKlNulQBADxI2Bi2FOwbQez953oirHo84qZAcD4gLERVCTzMWgLFydmfWeNhqqyAWIuKL8t8SNNcqRZAeXwgEzsoFsN3mgxXtILkKJWSfdu4vZCkzSaZBLScoGrfG3zCPY6ZAFG7zU4pnxiZArdTw2m5KCjsJVVZB8u8GxbywZDZD"
 			body = {
 				messaging_type: "NON_PROMOTIONAL_SUBSCRIPTION",
 				recipient: {
@@ -92,7 +92,7 @@ class User < ApplicationRecord
 				hash_id = hashids.encode(article.id)
 				url = "https://www.oremos.net/leer/#{hash_id}"
 
-				access_token = "EAAHuoKlNulQBADAZAStvz3DLAAtV6yggKZBSqE6QStZCsZBqRrLK6XKllhgiAcBpjsu5WI9Eh8bUS8ZBt7Wve9LkfMpdtbaf5lVecA345RFqTNgqiR0CA5hWL0f8Lp3aWnI9321o5EIYq3YjbFBPLgcNnOPoyvaZCp5uZCHkAM6zgZDZD"
+				access_token = "EAAHuoKlNulQBADxI2Bi2FOwbQez953oirHo84qZAcD4gLERVCTzMWgLFydmfWeNhqqyAWIuKL8t8SNNcqRZAeXwgEzsoFsN3mgxXtILkKJWSfdu4vZCkzSaZBLScoGrfG3zCPY6ZAFG7zU4pnxiZArdTw2m5KCjsJVVZB8u8GxbywZDZD"
 				conn = Faraday.new(:url => "https://graph.facebook.com")
 				body = {
 					messaging_type: "NON_PROMOTIONAL_SUBSCRIPTION",
