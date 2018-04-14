@@ -15,9 +15,11 @@ class ArticlesController < ApplicationController
 
   # GET /articles_for_user/:user_token.json
   def for_user
+    limit = params[:limit] || nil
+    offset = params[:offset] || nil
     @user = User.find_by(token: params[:user_token])
     if !@user.nil?
-      @articles = @user.articles
+      @articles = @user.articles.offset(offset).limit(limit).all
       render template: "articles/index.json"
     end
   end
