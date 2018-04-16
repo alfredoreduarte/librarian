@@ -123,37 +123,37 @@ class User < ApplicationRecord
 												type: "web_url",
 												url: url,
 												title: "LEER AHORA"
-											},
-											{
-												type: "element_share",
-												share_contents: { 
-													attachment: {
-														type: "template",
-														payload: {
-															template_type: "generic",
-															image_aspect_ratio: "square",
-															elements: [
-																{
-																	title: article.title,
-																	subtitle: article.content["explanation"][0..100],
-																	image_url: image_url,
-																	default_action: {
-																		type: "web_url",
-																		url: url
-																	},
-																	buttons: [
-																		{
-																			type: "web_url",
-																			url: url, 
-																			title: "Ingresa para leer la reflexión"
-																		}
-																	]
-																}
-															]
-														}
-													}
-												}
 											}
+											# {
+											# 	type: "element_share",
+											# 	share_contents: { 
+											# 		attachment: {
+											# 			type: "template",
+											# 			payload: {
+											# 				template_type: "generic",
+											# 				image_aspect_ratio: "square",
+											# 				elements: [
+											# 					{
+											# 						title: article.title,
+											# 						subtitle: article.content["explanation"][0..100],
+											# 						image_url: image_url,
+											# 						default_action: {
+											# 							type: "web_url",
+											# 							url: url
+											# 						},
+											# 						buttons: [
+											# 							{
+											# 								type: "web_url",
+											# 								url: url, 
+											# 								title: "Ingresa para leer la reflexión"
+											# 							}
+											# 						]
+											# 					}
+											# 				]
+											# 			}
+											# 		}
+											# 	}
+											# }
 										]
 									}
 								]
