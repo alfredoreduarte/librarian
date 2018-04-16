@@ -9,6 +9,9 @@ class User < ApplicationRecord
 		users = User.subscribed
 		for user in users
 			offset = user.timezone.to_i || -6
+			if offset == 0
+				offset = -6
+			end
 			user_time = Time.now.in_time_zone(offset)
 			logger.info("user_time time #{user_time}")
 			if user_time.hour >= 9 and user_time.hour < 11
