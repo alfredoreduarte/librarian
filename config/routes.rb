@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 		post '/users/update_timezone.json', to: 'users#update_timezone'
 		post '/users/unsubscribe.json', to: 'users#unsubscribe'
 		post '/users/status.json', to: 'users#status'
+		get '/users/per_day.json', to: 'users#per_day'
 		resources :users
 	# end
 	resources :projects

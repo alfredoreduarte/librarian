@@ -7,6 +7,16 @@ class UsersController < ApplicationController
     @users = User.order(created_at: :desc).all
   end
 
+  # GET /per_day
+  # GET /per_day.json
+  def per_day
+    @users = User.all.group_by {|t| t.created_at.to_date.to_s(:db) }.map {|k,v| {created_at: k, count: v.length}}
+  end
+
+  def group_by_criteria
+    created_at.to_date.to_s(:db)
+  end
+
   # GET /users/1
   # GET /users/1.json
   def show

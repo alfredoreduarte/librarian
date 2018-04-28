@@ -23,7 +23,7 @@ class User < ApplicationRecord
 					user.send_daily_content
 				# end
 			else
-				logger.info("time for user #{user.token} is less than 8 or after 8 pm")
+				logger.info("time for user #{user.token} is less than 9 or after 11 am")
 			end
 		end
 	end
